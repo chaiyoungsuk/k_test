@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.AddressMapper">
+	<select id="addressList" resultType="java.util.Map">
+		SELECT 
+			code 
+			, concat(city , ' ' , gun_gu , ' ' , town_myeon_dong , ' ' , ri) as address
+			, expire_flag
+		FROM 
+			address
+		<where>
+			<if test="@org.apache.commons.lang3.ObjectUtils@isNotEmpty(code)">
+				code = #{code}
+			</if>
+			<if test="@org.apache.commons.lang3.ObjectUtils@isNotEmpty(city)">
+				and city = #{city}
+			</if>
+			<if test="@org.apache.commons.lang3.ObjectUtils@isNotEmpty(gunGu)">
+				and gun_gu = #{gunGu}
+			</if>
+			<if test="@org.apache.commons.lang3.ObjectUtils@isNotEmpty(townMyeonDong)">
+				and town_myeon_dong = #{townMyeonDong}
+			</if>
+		</where>
+		ORDER BY code
+		<if test="@org.apache.commons.lang3.ObjectUtils@isEmpty(code)">
+			LIMIT 10 OFFSET 0
+		</if>
+		<if test="@org.apache.commons.lang3.ObjectUtils@isNotEmpty(code)">
+			LIMIT #{take} OFFSET ((#{page} - 1) * #{take})
+		</if>
+	</select>
+	
+</mapper>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.PlaceMapper">
+	<select id="readAll" resultType="java.util.Map">
+		select 
+			seq
+			, name
+			, alias
+			, description
+			, address_code
+			, detailed_address
+			, restraunt_flag
+			, visit_date
+		from 
+			place p
+		<where>
+			<if test="@org.apache.commons.lang3.ObjectUtils@isNotEmpty(seq)">
+				seq = #{seq}
+			</if>
+			<if test="@org.apache.commons.lang3.ObjectUtils@isNotEmpty(addressCode)">
+				and address_code = #{addressCode}
+			</if>
+			<if test="@org.apache.commons.lang3.ObjectUtils@isNotEmpty(name)">
+				and name = #{name}
+			</if>
+		</where>
+		ORDER BY visit_date
+		<if test="@org.apache.commons.lang3.ObjectUtils@isEmpty(code)">
+			LIMIT 10 OFFSET 0
+		</if>
+		<if test="@org.apache.commons.lang3.ObjectUtils@isNotEmpty(code)">
+			LIMIT #{take} OFFSET ((#{page} - 1) * #{take})
+		</if>
+	</select>
+	
+	<insert id="create" parameterType="Map" useGeneratedKeys="true" keyProperty="seq" keyColumn="seq">
+		INSERT INTO place(
+			name
+			, alias
+			, description
+			, address_code
+			, detailed_address
+			, restraunt_flag
+			, visit_date
+		) VALUES (
+			 #{name}
+			, #{alias}
+			, #{description}
+			, #{addressCode}
+			, #{detailedAddress}
+			, #{restrauntFlag}
+			, now()
+		)
+	</insert>
+	
+	<update id="update" parameterType="Map">
+		UPDATE 
+			place
+		SET 
+			name 					= #{name} 				
+			, alias					= #{alias}				
+			, description			= #{description}		
+			, address_code			= #{addressCode}
+			, detailed_address		= #{detailedAddress}	
+			, restraunt_flag		= #{restrauntFlag}	
+		WHERE 
+			seq = #{seq}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from place 
+		where seq = #{seq} 
+	</delete>
+</mapper>

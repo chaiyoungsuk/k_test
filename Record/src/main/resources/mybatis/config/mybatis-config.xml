@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="lazyLoadingEnabled" value="true" />
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<setting name="useColumnLabel" value="true" />
+		<setting name="useGeneratedKeys" value="false" />
+		<setting name="autoMappingBehavior" value="PARTIAL" />
+		<setting name="autoMappingUnknownColumnBehavior" value="WARNING" />
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		<setting name="defaultStatementTimeout" value="25" />
+		<setting name="defaultFetchSize" value="100" />
+		<setting name="safeRowBoundsEnabled" value="false" />
+		<setting name="mapUnderscoreToCamelCase" value="false" />
+		<setting name="localCacheScope" value="SESSION" />
+		<setting name="jdbcTypeForNull" value="OTHER" />
+		<setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString" />
+	</settings>
+	<typeAliases>
+
+		<!-- base -->
+		<typeAlias alias="int" type="java.lang.Integer" />
+		<typeAlias alias="double" type="java.lang.Double" />
+		<typeAlias alias="string" type="java.lang.String" />
+		<typeAlias alias="long" type="java.lang.Long" />
+
+		<!-- sql parameterClass Mapping name -->
+		<!-- <typeAlias alias="resultMap" type="com.example.demo.base.domain.ResultModel" />
+		<typeAlias alias="paramMap" type="com.kr.demo.common.domain.ParamModel" /> -->
+		<typeAlias alias="hashMap" type="java.util.HashMap" />
+		<typeAlias alias="Map" type="java.util.Map" />
+
+		<!-- system -->
+		<!-- <typeAlias type="insoft.serviceportal.web.vo.system.CodeVo" alias="code"/> -->
+	</typeAliases>
+	<!-- <mappers>
+		<mapper url="classpath:mybatis/mapper/dummy_mapper.xml" />
+	</mappers> -->
+</configuration>
